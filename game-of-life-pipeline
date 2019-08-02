@@ -5,13 +5,14 @@ pipeline {
     //参数化变量，目前只支持[booleanParam, choice, credentials, file, text, password, run, string]这几种参数类型，其他高级参数化类型还需等待社区支持。
     parameters {
     //git代码路径【参数值对外隐藏】
-    string(name:'repoUrl', defaultValue: 'git@git.*****.com:*****/*****.git', description: 'git代码路径')
+    string(name:'repoUrl', defaultValue: 'git@github.com:Mendol/game-of-life.git', description: 'git代码路径')
     //repoBranch参数后续替换成git parameter不再依赖手工输入,JENKINS-46451【git parameters目前还不支持pipeline】
     string(name:'repoBranch', defaultValue: 'master', description: 'git分支名称')
     //pom.xml的相对路径
     string(name:'pomPath', defaultValue: 'pom.xml', description: 'pom.xml的相对路径')
     //war包的相对路径
-    string(name:'warLocation', defaultValue: 'rpc/war/target/*.war', description: 'war包的相对路径 ')
+    string(name:'warLocation', defaultValue: 'target/*.war', description: 'war包的相对路径 ')
+        
     //服务器参数采用了组合方式，避免多次选择，使用docker为更佳实践【参数值对外隐藏】
     choice(name: 'server',choices:'192.168.1.107,9090,*****,*****\n192.168.1.60,9090,*****,*****', description: '测试服务器列表选择(IP,JettyPort,Name,Passwd)')
     //测试服务器的dubbo服务端口
@@ -29,7 +30,7 @@ pipeline {
     //常量参数，初始确定后一般不需更改
     environment{
         //git服务全系统只读账号cred_id【参数值对外隐藏】
-        CRED_ID='*****-****-****-****-*********'
+        CRED_ID='bc40527b-65c0-48cf-9856-224eb19f2f40'
         //测试人员邮箱地址【参数值对外隐藏】
         QA_EMAIL='*****@*****.com'
         //接口测试（网络层）的job名，一般由测试人员编写
