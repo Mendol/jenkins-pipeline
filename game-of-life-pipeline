@@ -75,9 +75,9 @@ pipeline {
             steps {
                 echo "starting codeAnalyze with SonarQube......"
                 //sonar:sonar.QualityGate should pass
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube Server') {
                   //固定使用项目根目录${basedir}下的pom.xml进行代码检查
-                  sh "mvn -f pom.xml clean compile sonar:sonar -Dsonar.projectKey=gameoflife -Dsonar.projectName=gameoflife -Dsonar.projectVersion=1.0 -Dsonar.sourceEncoding=UTF-8 -Dsonar.exclusions=src/test/** -Dsonar.sources=src/ -Dsonar.java.binaries=target/classes -Dmaven.jacoco.reportPaths=target/jacoco.exec -Dsonar.host.url=http://192.168.0.115:9000 -Dsonar.login=ce36c58d80c50b7fb6456c21425a7359b959df10"
+                  sh "mvn -f pom.xml clean compile sonar:sonar "
                 }
                 script {
                 timeout(10) { 
