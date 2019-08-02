@@ -68,7 +68,7 @@ pipeline {
               sh "mvn org.jacoco:jacoco-maven-plugin:prepare-agent -f ${params.pomPath} clean test -Dautoconfig.skip=true -Dmaven.test.skip=false -Dmaven.test.failure.ignore=true"
               junit '**/target/surefire-reports/*.xml'
               //配置单元测试覆盖率要求，未达到要求pipeline将会fail,code coverage.LineCoverage>20%.
-              jacoco changeBuildStatus: true, maximumLineCoverage:"${params.lineCoverage}"
+              //jacoco changeBuildStatus: true, maximumLineCoverage:"${params.lineCoverage}"
             }
         }
         stage('静态检查') {
