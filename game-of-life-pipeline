@@ -14,7 +14,7 @@ pipeline {
     string(name:'warLocation', defaultValue: 'target/*.war', description: 'war包的相对路径 ')
         
     //服务器参数采用了组合方式，避免多次选择，使用docker为更佳实践【参数值对外隐藏】
-    choice(name: 'server',choices:'192.168.0.115,9000,*****,*****', description: '测试服务器列表选择(IP,Port,Name,Passwd)')
+    choice(name: 'server',choices:'192.168.0.115,8090,*****,*****', description: '测试服务器列表选择(IP,Port,Name,Passwd)')
     //测试服务器的dubbo服务端口
     string(name:'dubboPort', defaultValue: '31100', description: '测试服务器的dubbo服务端口')
     //单元测试代码覆盖率要求，各项目视要求调整参数
@@ -77,7 +77,7 @@ pipeline {
                 //sonar:sonar.QualityGate should pass
                 withSonarQubeEnv('SonarQube Server') {
                   //固定使用项目根目录${basedir}下的pom.xml进行代码检查
-                  sh "mvn -f pom.xml clean compile sonar:sonar -Dsonar.projectKey=gameoflife -Dsonar.projectName=gameoflife -Dsonar.projectVersion=1.0 -Dsonar.sourceEncoding=UTF-8 -Dsonar.exclusions=src/test/** -Dsonar.sources=src/ -Dsonar.java.binaries=target/classes -Dmaven.jacoco.reportPaths=target/jacoco.exec"
+                  sh "mvn -f pom.xml clean compile sonar:sonar "
                 }
                 script {
                 timeout(10) { 
@@ -108,7 +108,7 @@ pipeline {
                     sh "echo ${deploylog} >>${WORKSPACE}/deploy.log"
                     sh "sshpass -p ${serverPasswd} scp ${WORKSPACE}/deploy.log ${serverName}@${serverIP}:htdocs/war"
                     //jetty restart，重启jetty
-                    sh "sshpass -p ${serverPasswd} ssh ${serverName}@${serverIP} 'bin/jettyrestart.sh' "
+                    sh "sshpass -p ${serverPasswd} ssh ${serverName}@${serverIP} 'bin/startup.sh' "
                     }
                 }
             }
