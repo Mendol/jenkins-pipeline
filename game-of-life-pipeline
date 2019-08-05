@@ -97,43 +97,28 @@ pipeline {
                 //编译和打包
                 sh "mvn  -f ${params.pomPath} clean package -Dautoconfig.skip=true -Dmaven.test.skip=true"
                deploy adapters: [tomcat9(credentialsId: 'tomcat', url: 'http://192.168.0.115:8090/')], contextPath: 'gameoflife', war: 'gameoflife-web/target/*.war'
-                //archiveArtifacts warLocation
-             //   script {
-                 //   wrap([$class: 'BuildUser']) {
-                    //发布war包到指定服务器，虚拟机文件目录通过shell脚本初始化建立，所以目录是固定的
-                 //   sh "sshpass -p ${serverPasswd} scp ${params.warLocation} ${serverName}@${serverIP}:htdocs/war"
-                    //这里增加了一个小功能，在服务器上记录了基本部署信息，方便多人使用一套环境时问题排查，storge in {WORKSPACE}/deploy.log  & remoteServer:htdocs/war
-                //    Date date = new Date()
-                //    def deploylog="${date.toString()},${BUILD_USER} use pipeline  '${JOB_NAME}(${BUILD_NUMBER})' deploy branch ${params.repoBranch} to server ${serverIP}"
-                //    println deploylog
-                //    sh "echo ${deploylog} >>${WORKSPACE}/deploy.log"
-                //    sh "sshpass -p ${serverPasswd} scp ${WORKSPACE}/deploy.log ${serverName}@${serverIP}:htdocs/war"
-                    //jetty restart，重启jetty
-                 //   sh "sshpass -p ${serverPasswd} ssh ${serverName}@${serverIP} 'bin/startup.sh' "
-                //    }
-               // }
             }
         }
 
       stage('接口自动化测试') {
             steps{
                 echo "starting interfaceTest......"
-                script {
+              //  script {
                  //为确保jetty启动完成，加了一个判断，确保jetty服务器启动可以访问后再执行接口层测试。
-                 timeout(5) {
-                     waitUntil {
-                        try {
+              //   timeout(5) {
+                   //  waitUntil {
+                    //    try {
                             //确保jetty服务的端口启动成功
-                            sh "nc -z ${serverIP} ${jettyPort}"
+                     //       sh "nc -z ${serverIP} ${jettyPort}"
                             //sh "wget -q http://${serverIP}:${jettyPort} -O /dev/null"
-                            return true
-                        } catch (exception) {
-                            return false
-                            }
-                        }
-                    }
+                    //        return true
+                    //    } catch (exception) {
+                   //         return false
+                   //         }
+                   //     }
+                  //  }
                 //将参数IP和Port传入到接口测试的job，需要确保接口测试的job参数可注入
-                 build job: ITEST_JOBNAME, parameters: [string(name: "dubbourl", value: "${serverIP}:${params.dubboPort}")]
+                // build job: ITEST_JOBNAME, parameters: [string(name: "dubbourl", value: "${serverIP}:${params.dubboPort}")]
                 }
             }
         }
