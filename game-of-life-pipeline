@@ -96,7 +96,7 @@ pipeline {
                 echo "starting deploy to ${serverIP}......"
                 //编译和打包
                 sh "mvn  -f ${params.pomPath} clean package -Dautoconfig.skip=true -Dmaven.test.skip=true"
-                deploy adapters: [tomcat9(url: 'http://192.168.0.115:8090/')], contextPath: 'gameoflife', war: 'gameoflife-web/target/*.war'
+               deploy adapters: [tomcat9(credentialsId: 'tomcat', url: 'http://192.168.0.115:8090/')], contextPath: 'gameoflife', war: 'gameoflife-web/target/*.war'
                 //archiveArtifacts warLocation
              //   script {
                  //   wrap([$class: 'BuildUser']) {
