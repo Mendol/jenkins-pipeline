@@ -32,7 +32,7 @@ pipeline {
         //git服务全系统只读账号cred_id【参数值对外隐藏】
         CRED_ID='bc40527b-65c0-48cf-9856-224eb19f2f40'
         //测试人员邮箱地址【参数值对外隐藏】
-        QA_EMAIL='*****@*****.com'
+        QA_EMAIL='wangmengdi025@163.com'
         //接口测试（网络层）的job名，一般由测试人员编写
         ITEST_JOBNAME='Guahao_InterfaceTest_ExpertPatient'
     }
