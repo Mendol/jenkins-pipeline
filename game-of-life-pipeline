@@ -119,7 +119,7 @@ pipeline {
                   //  }
                 //将参数IP和Port传入到接口测试的job，需要确保接口测试的job参数可注入
                 // build job: ITEST_JOBNAME, parameters: [string(name: "dubbourl", value: "${serverIP}:${params.dubboPort}")]
-                }
+               // }
             }
         }
 
