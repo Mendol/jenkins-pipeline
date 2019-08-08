@@ -100,27 +100,28 @@ pipeline {
             }
         }
 
+           
       stage('接口自动化测试') {
-            steps{
+          /*  steps{
                 echo "starting interfaceTest......"
-              //  script {
+                script {
                  //为确保jetty启动完成，加了一个判断，确保jetty服务器启动可以访问后再执行接口层测试。
-              //   timeout(5) {
-                   //  waitUntil {
-                    //    try {
+                timeout(5) {
+                     waitUntil {
+                        try {
                             //确保jetty服务的端口启动成功
-                     //       sh "nc -z ${serverIP} ${jettyPort}"
-                            //sh "wget -q http://${serverIP}:${jettyPort} -O /dev/null"
-                    //        return true
-                    //    } catch (exception) {
-                   //         return false
-                   //         }
-                   //     }
-                  //  }
+                            sh "nc -z ${serverIP} ${jettyPort}"
+                            sh "wget -q http://${serverIP}:${jettyPort} -O /dev/null"
+                           return true
+                        } catch (exception) {
+                            return false
+                            }
+                        }
+                    }
                 //将参数IP和Port传入到接口测试的job，需要确保接口测试的job参数可注入
-                // build job: ITEST_JOBNAME, parameters: [string(name: "dubbourl", value: "${serverIP}:${params.dubboPort}")]
-               // }
-            }
+                 build job: ITEST_JOBNAME, parameters: [string(name: "dubbourl", value: "${serverIP}:${params.dubboPort}")]
+                }
+            } */
         }
 
         stage('UI自动化测试') { 
@@ -135,7 +136,7 @@ pipeline {
                  echo "starting performanceTest......"
                 //视项目需要增加性能的冒烟测试，具体实现后续专文阐述
                 }
-        }
+        } 
 
         stage('通知人工验收'){
             steps{
@@ -148,7 +149,8 @@ pipeline {
                         emailext(
                          to: "${QA_EMAIL}",
                          subject: "PineLine ${JOB_NAME} (${BUILD_NUMBER})人工验收通知",
-                         body: """<p>${BUILD_USER}提交的PineLine ${JOB_NAME} (${BUILD_NUMBER})进入人工验收环节,<br>请及时前往<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>进行测试验收</p>"""
+                         body: """<p>${BUILD_USER}提交的PineLine ${JOB_NAME} (${BUILD_NUMBER})进入人工验收环节,
+                         <br>请及时前往<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>进行测试验收</p>"""
                     
                         )
                        }
@@ -156,12 +158,5 @@ pipeline {
                 }
             }
         }
-
-        // stage('发布系统') { 
-        //     steps{
-        //         echo "starting deploy......"
-        //     //    TODO发布环节后续专题阐述
-        //     }
-        // }
     }
 }
