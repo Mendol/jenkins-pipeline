@@ -4,7 +4,7 @@ pipeline {
         stage('测试邮件'){
         steps{
         emailext (
-         mail to: "wangmengdi025@163.com",
+         to: "wangmengdi025@163.com",
                          subject: "PineLine ${JOB_NAME} (${BUILD_NUMBER})人工验收通知",
                          body: """ <h1>测试结果 - FAILED</h1>
   <span class="tip">(本邮件是程序自动下发的，请勿回复，谢谢！！)</span><p>Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
