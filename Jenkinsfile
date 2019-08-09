@@ -1,5 +1,10 @@
 pipeline {
     agent any
+     //环境变量，初始确定后一般不需更改
+    tools {
+        maven 'mvn3.6'
+        jdk   'jdk1.8_master'
+    }
     stages {
         stage('拉取源码') {
             steps {
