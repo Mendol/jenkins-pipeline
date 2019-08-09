@@ -102,8 +102,9 @@ pipeline {
 
            
       stage('接口自动化测试') {
-          /*  steps{
+            steps{
                 echo "starting interfaceTest......"
+                /*
                 script {
                  //为确保jetty启动完成，加了一个判断，确保jetty服务器启动可以访问后再执行接口层测试。
                 timeout(5) {
@@ -120,8 +121,8 @@ pipeline {
                     }
                 //将参数IP和Port传入到接口测试的job，需要确保接口测试的job参数可注入
                  build job: ITEST_JOBNAME, parameters: [string(name: "dubbourl", value: "${serverIP}:${params.dubboPort}")]
-                }
-            } */
+                } */
+            } 
         }
 
         stage('UI自动化测试') { 
