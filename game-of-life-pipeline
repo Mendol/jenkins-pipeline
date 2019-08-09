@@ -77,7 +77,7 @@ pipeline {
                 //sonar:sonar.QualityGate should pass
                 withSonarQubeEnv('SonarQube Server') {
                   //固定使用项目根目录${basedir}下的pom.xml进行代码检查
-                  sh "mvn -f pom.xml clean compile sonar:sonar "
+                  sh "mvn -f pom.xml clean compile sonar:sonar -Dmaven.jacoco.reportPaths=target/jacoco.exec"
                 }
                 script {
                 timeout(10) { 
