@@ -20,7 +20,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube Server') {
                 //注意这里withSonarQubeEnv()中的参数要与之前SonarQube servers中Name的配置相同
                 withMaven(maven: 'mvn3.6', options: [jacocoPublisher()]) {
-                sh "mvn clean install sonar:sonar -Dsonar.projectKey=gameoflife -Dsonar.projectName=gameoflife001 -Dsonar.projectVersion=1.0 -Dsonar.sourceEncoding=UTF-8 -Dsonar.exclusions=src/test/** -Dsonar.sources=src/ -Dsonar.java.binaries=target/classes -Dmaven.jacoco.reportPaths=target/jacoco.exec -Dsonar.host.url=http://192.168.0.115:9000 -Dsonar.login=ce36c58d80c50b7fb6456c21425a7359b959df10"
+                sh "mvn clean install sonar:sonar -Dsonar.projectKey=gameoflife -Dsonar.projectName=gameoflife001 -Dsonar.projectVersion=1.0 -Dsonar.sourceEncoding=UTF-8 -Dsonar.exclusions=src/test/** -Dsonar.sources=src/ -Dsonar.java.binaries=target/classes -Dmaven.jacoco.reportPaths=target/jacoco.exec -Dsonar.host.url=http://192.168.0.119:9000 -Dsonar.login=ce36c58d80c50b7fb6456c21425a7359b959df10"
                 
              }
          }
